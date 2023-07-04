@@ -48,26 +48,6 @@ int LightBefore = CurrentLight - 1;
 int LightAfter = CurrentLight + 1;
 
 
-
-// void colorWipe(uint32_t color, uint32_t colorOfBlack, int wait) {
-//   for(;CurrentLight<strip.numPixels(); CurrentLight++) { // For each pixel in strip...
-//     strip.setPixelColor(CurrentLight, color); 
-//     strip.setPixelColor(CurrentLight-1, colorOfBlack);
-//     strip.show();                          //  Update strip to match
-//     delay(wait);                           //  Pause for a moment
-//   }
-// }
-
-
-// void colorWipeReverse(uint32_t color, uint32_t colorOfBlack, int wait) {
-//   for(;CurrentLight>0; CurrentLight--) { // For each pixel in strip...
-//     strip.setPixelColor(CurrentLight, color);     
-//     strip.setPixelColor(CurrentLight+1, colorOfBlack);    //  Set pixel's color (in RAM)
-//     strip.show();                          //  Update strip to match
-//     delay(wait);         
-//   }
-// }
-
 void initDisplay() {
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
@@ -107,7 +87,7 @@ void setup() {
   // pinMode(pushButton_pin, INPUT_PULLUP);
   //attachInterrupt(pushButton_pin, yurMom, FALLING);
 
-  //initDisplay();
+  initDisplay();
 
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
@@ -134,7 +114,7 @@ void loop()
     LightAfter++;
     LightBefore++;
     delay(Speed_Of_Pong);
-    Serial.println(Forward_Button.isPressed());
+    
     if (Backward_Button.isPressed() && CurrentLight > 29)
     {
       Moving_Forward = false;
@@ -168,7 +148,7 @@ void loop()
     LightAfter--;
     LightBefore--;
     delay(Speed_Of_Pong);
-    Serial.println(Forward_Button.isPressed());
+    
     if (Forward_Button.isPressed() && CurrentLight < 28)
     {
       Moving_Forward = true;

@@ -15,8 +15,10 @@
 // Declare our NeoPixel strip object:
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-int pushButton_pin = 15;
-ezButton button1(pushButton_pin);
+int Forward_Button_Pin = 4;//15;
+int Backward_Button_Pin = 2;
+ezButton Forward_Button(Forward_Button_Pin);
+ezButton Backward_Button(Backward_Button_Pin);
 int speedOfReturn = 50;
 int CurrentLight = 0;
 bool Moving_Forward = true;
@@ -72,14 +74,15 @@ void setup() {
   strip.show();            // Turn OFF all pixels ASAP
   strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
   
-  button1.setDebounceTime(DEBOUNCE_TIME);
+  Forward_Button.setDebounceTime(DEBOUNCE_TIME);
 }
 
 
 
 void loop()
 {
-  button1.loop();
+  Forward_Button.loop();
+  Backward_Button.loop();
 
   if (Moving_Forward == true)
   {
@@ -92,8 +95,8 @@ void loop()
     LightAfter++;
     LightBefore++;
     delay(Speed_Of_Pong);
-    Serial.println(button1.isPressed());
-    if (button1.isPressed())
+    Serial.println(Forward_Button.isPressed());
+    if (Backward_Button.isPressed())
     {
       Moving_Forward = false;
       switch (CurrentLight) {
@@ -126,8 +129,8 @@ void loop()
     LightAfter--;
     LightBefore--;
     delay(Speed_Of_Pong);
-    Serial.println(button1.isPressed());
-    if (button1.isPressed())
+    Serial.println(Forward_Button.isPressed());
+    if (Forward_Button.isPressed())
     {
       Moving_Forward = true;
       switch (CurrentLight) {

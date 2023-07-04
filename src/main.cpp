@@ -23,7 +23,7 @@ int speedOfReturn = 50;
 int CurrentLight = 0;
 bool Moving_Forward = true;
 bool Is_Beginning = true;
-int Speed_Of_Pong = 50;
+int Speed_Of_Pong = 30;
 
 uint32_t Red = strip.Color(255, 0, 0);
 uint32_t Black = strip.Color(0, 0, 0);
@@ -96,7 +96,7 @@ void loop()
     LightBefore++;
     delay(Speed_Of_Pong);
     Serial.println(Forward_Button.isPressed());
-    if (Backward_Button.isPressed())
+    if (Backward_Button.isPressed() && CurrentLight > 29)
     {
       Moving_Forward = false;
       switch (CurrentLight) {
@@ -130,7 +130,7 @@ void loop()
     LightBefore--;
     delay(Speed_Of_Pong);
     Serial.println(Forward_Button.isPressed());
-    if (Forward_Button.isPressed())
+    if (Forward_Button.isPressed() && CurrentLight < 28)
     {
       Moving_Forward = true;
       switch (CurrentLight) {

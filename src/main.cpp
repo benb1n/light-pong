@@ -3,15 +3,10 @@
 #include <ezButton.h>
 #include <SPI.h>
 #include <Wire.h>
-#ifdef __AVR__
- #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
-#endif
-
 #include "LightPongDisplay.h"
 
-#define LED_PIN    5
-// How many NeoPixels are attached to the Arduino?
-#define LED_COUNT 57
+#define LED_PIN 5
+#define LED_COUNT 57 // How many NeoPixels are attached to the Arduino?
 #define DEBOUNCE_TIME 50
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -20,11 +15,11 @@ int Backward_Button_Pin = 2;
 ezButton Forward_Button(Forward_Button_Pin);
 ezButton Backward_Button(Backward_Button_Pin);
 
-int speedOfReturn = 50;
 int CurrentLight = 0;
-bool Moving_Forward = true;
-bool Is_Beginning = true;
+int speedOfReturn = 50;
 int Speed_Of_Pong = 30;
+bool Is_Beginning = true;
+bool Moving_Forward = true;
 
 uint32_t Red = strip.Color(255, 0, 0);
 uint32_t Black = strip.Color(0, 0, 0);
@@ -33,20 +28,11 @@ int LightBefore = CurrentLight - 1;
 int LightAfter = CurrentLight + 1;
 
 
-
-
 void setup() {
 
   Serial.begin(115200);
   delay(1000);
   Serial.println("Whats up");
-
-#if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
-  clock_prescale_set(clock_div_1);
-#endif
-  // END of Trinket-specific code.
-  // pinMode(pushButton_pin, INPUT_PULLUP);
-  //attachInterrupt(pushButton_pin, yurMom, FALLING);
 
   initDisplay();
 

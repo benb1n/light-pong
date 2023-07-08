@@ -40,3 +40,24 @@ void initDisplay() {
   display.println("Ready player 1");
   display.display();
 }
+
+void showScore(int red, int yellow) {
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 0);
+  display.println("Light Pong");
+
+  display.setFont(&FreeSansBold9pt7b);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 40);
+  display.println("Red: " + red);
+
+  display.setFont(&FreeSansBold9pt7b);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 60);
+  display.println("Yellow: " + yellow);
+  
+  display.display();
+}

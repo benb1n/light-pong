@@ -16,6 +16,9 @@ int Backward_Button_Pin = 2;
 ezButton Forward_Button(Forward_Button_Pin);
 ezButton Backward_Button(Backward_Button_Pin);
 
+int Yellow_Score = 0;
+int Red_Score = 0;
+
 int CurrentLight = 0;
 int speedOfReturn = 50;
 int Speed_Of_Pong = 30;
@@ -38,6 +41,21 @@ uint32_t Black = strip.Color(0, 0, 0);
 int LightBefore = CurrentLight - 1;
 int LightAfter = CurrentLight + 1;
 
+void colorWipe(uint32_t c, uint8_t wait) {
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i, c);
+    strip.show();
+    delay(wait);
+  }
+}
+
+void reverseColorWipe(uint32_t c, uint8_t wait) {
+  for(uint16_t i=57; i>strip.numPixels(); i--) {
+    strip.setPixelColor(i, c);
+    strip.show();
+    delay(wait);
+  }
+}
 
 void setup() {
 
@@ -72,11 +90,14 @@ void loop()
 
   if (Game_Mode == 0 && Yellow_Won == false && Red_Won == true)
   {
+    //reverseColorWipe((255, 0, 0), 100);
+    //strip.show();
     delay(3000);
 
     CurrentLight = 0;
     LightBefore = CurrentLight - 1;
     LightAfter = CurrentLight + 1;
+    Red_Score++;
 
     Speed_Of_Pong = 30;
 
@@ -88,11 +109,14 @@ void loop()
   } 
   else if (Game_Mode == 0 && Yellow_Won == true && Red_Won == false)
   {
+    //colorWipe((255, 105, 0), 100);
+    //strip.show();
     delay(3000);
 
     CurrentLight = 57;
     LightBefore = CurrentLight - 1;
     LightAfter = CurrentLight + 1;
+    Yellow_Score++;
 
     Speed_Of_Pong = 30;
 
